@@ -11,8 +11,9 @@ export const getAllCars = createAsyncThunk(
     async(_,{dispatch}) =>{
         try {
         const allRef = doc(CarRef, 'all') 
-        const carSnap = await getDoc(allRef)
-        dispatch(setCar({cars: carSnap.data().car}))
+        const carSnap = await getDoc(allRef) 
+        console.log(carSnap.data());
+        dispatch(setCar({cars: carSnap.data()?.cars}))
         } catch (error) {
             console.log(error);
         }

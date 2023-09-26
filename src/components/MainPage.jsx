@@ -1,6 +1,7 @@
 import React from 'react'
 import s from './Main.module.css'
 import { Collapse } from 'antd'
+import CarSelect from './CarSelect';
 const items = [
     {
         key: '1',
@@ -38,6 +39,8 @@ const MainPage = () => {
                         <div className={s.main__title}>Новые автомобили из Китая в Алматы или Бишкек за 2 недели</div>
                         <div className={s.main__subtitle}>Закажите по цене завода, без наценок и переплат. Попробуйте быстрый расчёт цены под ключ</div>
                     </section> 
+
+                    <CarSelect/>
 
                     <section className={s.questions}> 
                     <div className={s.questions__title}>Вопросы и ответы</div> 
