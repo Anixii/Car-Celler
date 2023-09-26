@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+.main{ 
+    height: 100%;
+} 
+
+.main__container{ 
+    padding: 0 18%; 
+} 
+.main__text{  
+    padding: 5% 0; 
+    display: flex; 
+    justify-content: center; 
+    align-items:center; 
+    flex-direction: column;
+}  
+.main__title{   
+    color: #1d1d1f;
+    width: 60%;
+    text-align:  center; 
+    font-size: 39px; 
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+} 
+.main__subtitle{    
+    margin-top: 1vh;
+    color: #1d1d1f;
+    width: 60%;
+    text-align:  center; 
+    font-size: 24px; 
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+}  
+.questions{ 
+    border-top: 2px solid  rgb(211, 211, 211);
+    border-bottom: 2px solid rgb(211, 211, 211);
+}
+.questions__title{  
+    margin-top: 1.2vh;
+    color: #1d1d1f;
+    font-size: 32px; 
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+}
+.questions__container{ 
+    padding: 5% 4% ;
+} 
+.questions__collapse > div{  
+    padding: 7px 0;
+    background-color: white;
+}
+.questions__collapse > div > div > span{
+    color: #1d1d1f;
+    font-size: 19px; 
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+}
+.questions__collapse > div > div > div > span{
+    color: #1d1d1f;
+    font-size: 17px !important; 
+}
+.collapse__title{ 
+    color: #656565;
+    font-size: 16px; 
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+}
