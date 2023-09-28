@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { db, storage } from "../firebaseConfig"; 
 import carImg from '../assets/img/main.jpg'
 import { getDownloadURL, listAll, ref } from "firebase/storage";
+import { generateRandomString } from "../helpers/random";
 const CarRef = collection(db, 'Cars')
-const ModelRef = collection(db, 'Models')
+const ModelRef = collection(db, 'Models') 
+const UserRef = collection(db, 'Users')
 const initialState = { 
     cars: [], 
     carImage: carImg, 
@@ -12,7 +14,8 @@ const initialState = {
     model:null, 
     phoneNumber: null, 
     city: null, 
-    defineModel: null
+    defineModel: null, 
+    error: false
 } 
 export const getDefineCarModel = createAsyncThunk( 
     'car/getDefineCarModel',
@@ -45,11 +48,26 @@ export const getAllCars = createAsyncThunk(
 ) 
 export const setClientData = createAsyncThunk( 
     'car/setClientData', 
-    async () => { 
-        try {
-            
-        } catch (error) {
-            
+    async ({equipment}, {getState}) => { 
+        try {  
+            const {model,mark,phoneNumber,city} = getState().car
+            const ran = generateRandomString()
+            const userDoc = doc(UserRef, ran)  
+
+            if(model && mark && phoneNumber && city){ 
+            await setDoc(userDoc, { 
+                equipment, 
+                model, 
+                mark, 
+                phoneNumber, 
+                city
+            }) 
+         }else{ 
+            return 'error'
+         }
+        } catch (error) { 
+            console.log(error); 
+            return 'error'
         }
     }
 )
@@ -94,9 +112,11 @@ const carSlice = createSlice({
         }, 
         setDefineModel(state,action){ 
             state.defineModel = action.payload.model 
-        }
-        
+        }, 
+        setError(state,action) { 
+            state.error = action.payload.error
+        }   
     }
 }) 
-export const {setCar,setCarImgage, setCarFormInfo, setDefineModel} = carSlice.actions 
+export const {setCar,setCarImgage, setCarFormInfo, setDefineModel, setError} = carSlice.actions 
 export default carSlice.reducer

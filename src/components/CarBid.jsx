@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import s from './Main.module.css'
 import Select from 'react-select';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import { setClientData } from '../store/Car-slice';
 const CarBid = ({ setToggle }) => {
+    const dispatch = useDispatch() 
+    const [messageApi, contextHolder] = message.useMessage(); 
     const { defineModel } = useSelector(state => state.car)
-    const [definePrice, setDefinePrice] = useState(defineModel?.equipment[0].price) 
+    const [definePrice, setDefinePrice] = useState(defineModel?.equipment[0].price)
     const [equipment, setEquipment] = useState()
     const typeSelect = defineModel?.equipment?.map((item) => ({
         value: item?.id,
@@ -14,14 +17,25 @@ const CarBid = ({ setToggle }) => {
     }))
     const onHandleSelectChange = (e) => {
         const model = defineModel.equipment.filter(item => item.id === e.value)
-        setDefinePrice(model[0].price)  
+        setDefinePrice(model[0].price)
         setEquipment(e.name)
-    } 
-    const onHandleClickBack = () =>{ 
+    }
+    const onHandleClickBack = () => {
         setToggle(false)
+    } 
+    const onHandleClick = async() =>{ 
+        const res = await dispatch(setClientData({equipment})) 
+        if(res === 'error'){ 
+            messageApi.open({
+                type: 'error',
+                content: 'Произошла ошибка, попробуйте в другой раз!', 
+                duration: 6
+            });
+        }
     }
     return (
-        <>
+        <> 
+         {contextHolder}  
             <div className={s.bid} >
                 <div className={s.bid__equipment}>
                     <div className={s.bid__title}>{defineModel.name} {defineModel.model}</div>
@@ -33,10 +47,12 @@ const CarBid = ({ setToggle }) => {
                         </div>
                     </div>
                     <div className={s.bid__price}>
-                        {definePrice?.map((item, index) => <div key={index} className={s.bid__list}>
-                            <div className={s.bid__list_name}>{item.name}</div>
-                            <div className={s.bid__list_price}>$ {item.num}</div>
-                        </div>)}
+
+                            {definePrice?.map((item, index) => <div key={index} className={s.bid__list}>
+                                <div className={s.bid__list_name}>{item.name}</div>
+                                <div className={s.bid__list_price}>$ {item.num}</div>
+                            </div>)}
+
                     </div>
                     <div className={s.bid__subtitle}>
                         <strong>Что входит в стоимость: </strong>
@@ -48,7 +64,7 @@ const CarBid = ({ setToggle }) => {
                     <div className={s.bid__button_container}>
                         <div className={s.bid__btn}>
                             <Button className={s.btn__back} onClick={onHandleClickBack} icon={<ArrowLeftOutlined />} />
-                            <button className={s.btn__key}>Оставить заявку</button>
+                            <button onClick={onHandleClick} className={s.btn__key}>Оставить заявку</button>
                         </div>
                         <div className={s.button__title}>
                             Сможете сравнить цены по комплектациям автомобиля и разным условиям поставки
@@ -62,5 +78,4 @@ const CarBid = ({ setToggle }) => {
         </>
     )
 }
-
 export default CarBid

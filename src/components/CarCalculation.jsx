@@ -11,7 +11,6 @@ const CarCalculation = ({cars, setToggle, setImgFetching, isSelectFetching}) => 
     const [mark, setMark] = useState()
     const onSubmit = (e) => {
         const {phoneNumber, model,city} = e  
-        console.log(e);
         dispatch(setCarFormInfo({mark:mark,model:model.label,phoneNumber,city})) 
         setToggle(true)
     } 
