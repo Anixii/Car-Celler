@@ -3,8 +3,9 @@ import { Controller, useForm } from 'react-hook-form';
 import s from './Main.module.css' 
 import Select from 'react-select';
 import { useDispatch } from 'react-redux';
-import { getDefineCarImage, setCarFormInfo } from '../store/Car-slice';
-const CarCalculation = ({cars, setToggle}) => {  
+import { getDefineCarImage, getDefineCarModel, setCarFormInfo } from '../store/Car-slice';
+import { Spin } from 'antd';
+const CarCalculation = ({cars, setToggle, setImgFetching, isSelectFetching}) => {  
     const dispatch = useDispatch()
     const { handleSubmit, formState: { errors }, reset, control, register,  } = useForm() 
     const [mark, setMark] = useState()
@@ -35,7 +36,8 @@ const CarCalculation = ({cars, setToggle}) => {
         })
     }
     const onModelChange = (e) => {
-        dispatch(getDefineCarImage({ id: e.value }))
+        dispatch(getDefineCarModel({id:e.value}))
+        dispatch(getDefineCarImage({ id: e.value, FC:setImgFetching }))
     }
   return (
     <>  
@@ -48,6 +50,7 @@ const CarCalculation = ({cars, setToggle}) => {
                         <div className={s.car__select}>
 
                             <div className={s.car__item}>
+                                <Spin spinning={isSelectFetching}> 
                                 <Controller
                                     name='mark'
                                     control={control}
@@ -57,7 +60,7 @@ const CarCalculation = ({cars, setToggle}) => {
 
                                     render={({ field }) => <Select {...field}
                                         onChange={onHandleChange} className={s.carSelect} options={typeSelect} isSearchable={true} placeholder='Марка' />}
-                                />
+                                /> </Spin>
                             </div>
 
                             <div className={s.car__item}>

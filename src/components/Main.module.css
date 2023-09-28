@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
 .main{ 
     height: 100%;
-}  
+}   
+
 .error__message{ 
     color: #ff0002; 
     font-size: 14px ; 
@@ -81,23 +82,23 @@ input[type="number"]::-webkit-outer-spin-button {
     justify-content: space-between;
     height: 100%;
 }
-.img{
+.img{ 
     width: 70%; 
 } 
 .img img{ 
     width: 100%; 
     border-radius: 16px; 
     height: 100%; 
-
     object-fit: cover;
 } 
-.car__form{  
+.car__form,.bid{   
+    height: auto;
     width: 29.5%;
     display: flex; 
     flex-direction: column; 
     justify-content: space-between;
 }
-.car__container, .car__contacts, .car__button{   
+.car__container, .car__contacts, .car__button,.bid__equipment,.bid__button{   
     border-radius: 16px; 
     background-color:#efefef;
     padding: 15px 10px;
@@ -173,7 +174,65 @@ input[type="number"]::-webkit-outer-spin-button {
     border-radius: 8px;
     background-color: #ff0002;
 } 
+.car__button, .bid__button{ 
+    box-sizing: border-box;
+}
 
+.bid__title,.bid__select_title{ 
+    color: #1d1d1f;
+    font-size: 17px; 
+    font-family: 'Nunito',sans-serif; 
+    font-weight: 700;
+}
+.bid__subtitle{  
+    margin-top: 1vh;
+    color: #1d1d1f;
+    font-size: 13px; 
+    font-family: 'Nunito',sans-serif; 
+    font-weight: 400;
+}
+.bid__list{    
+    padding: 2.5%;
+    border-bottom: 1px solid rgb(211, 211, 211);
+    display: flex; 
+    justify-content: space-between;
+} 
+.bid__list_name,.bid__list_price{  
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nunito',sans-serif;
+}  
+.bid__select{ 
+    margin: 2vh 0;
+}
+.bid__btn{  
+    width: 100%; 
+    height: 100%;
+    display: flex; 
+    justify-content: space-between; 
+} 
+.bid__btn button{ 
+    outline: none; 
+    border: none;
+    color: #ffffff;
+    font-family: 'Nunito', sans-serif; 
+    font-weight: 400;
+    border-radius: 8px;
+    background-color: #ff0002;
+} 
+.btn__key{ 
+    font-size: 14px;
+    font-family: 'Nunito', sans-serif; 
+    width: 79%; 
+    padding: 18px;
+} 
+.btn__back{ 
+    width: 17% !important; 
+    height: auto;
+} 
+.bid__equipment{ 
+    margin-bottom: 1vh;
+}
 @media screen and (max-width: 1540px) {
     .main__container{ 
         padding: 0 12%; 
@@ -226,12 +285,12 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 @media screen and (max-width: 1280px) {
     .main__container{ 
-        padding: 0 9%; 
-    }  
+        padding: 0 8%; 
+    }   
 }
 @media screen and (max-width: 1080px) {
     .main__container{ 
-        padding: 0 9%; 
+        padding: 0 8%; 
     }   
     .choose{ 
         flex-direction: column; 
@@ -240,7 +299,8 @@ input[type="number"]::-webkit-outer-spin-button {
     .img{ 
         width: 100%;
     } 
-    .car__form{ 
+    .car__form,.bid{  
+        margin-top: 0.6vh;
         width: 100%;
     }  
 
@@ -297,6 +357,38 @@ input[type="number"]::-webkit-outer-spin-button {
         font-size: 14px;
         padding: 18px;
 
+    }  
+
+    .bid__title,.bid__select_title{ 
+        font-size: 20px; 
+    }
+    .bid__subtitle{  
+        font-size: 15px; 
+    }
+    .bid__list{ 
+        padding: 1.5%;
+    }
+    .bid__list_name,.bid__list_price{  
+        font-size: 18px; 
+
+    }    
+    .bid__button{ 
+        width: 100%; 
+        display: flex; justify-content: center;
+    }
+    .bid__button_container{
+        width: 75%; 
+        display: flex; 
+        justify-content: center; 
+        flex-direction: column;
+    }
+    .btn__key{ 
+        font-size: 16px;
+        width: 79%; 
+        padding: 18px;
+    } 
+    .btn__back{ 
+        width: 17% !important; 
     } 
 }
 @media screen and (max-width: 768px) {
@@ -424,5 +516,37 @@ input[type="number"]::-webkit-outer-spin-button {
         font-size: 14px;
         padding: 14px;
 
+    }  
+
+    .bid__title,.bid__select_title{ 
+        font-size: 18px; 
+    }
+    .bid__subtitle{  
+        font-size: 14px; 
+    }
+    .bid__list{ 
+        padding: 1.5%;
+    }
+    .bid__list_name,.bid__list_price{  
+        font-size: 16px; 
+
+    }    
+    .bid__button{ 
+        width: 100%; 
+        display: flex; justify-content: center;
+    }
+    .bid__button_container{
+        width: 100%; 
+        display: flex; 
+        justify-content: center; 
+        flex-direction: column;
+    }
+    .btn__key{ 
+        font-size: 16px;
+        width: 79%; 
+        padding: 18px;
+    } 
+    .btn__back{ 
+        width: 17% !important; 
     } 
 }

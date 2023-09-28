@@ -4,18 +4,32 @@ import { db, storage } from "../firebaseConfig";
 import carImg from '../assets/img/main.jpg'
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 const CarRef = collection(db, 'Cars')
-// const ModelRef = collection(db, 'Models')
+const ModelRef = collection(db, 'Models')
 const initialState = { 
     cars: [], 
     carImage: carImg, 
     mark: null, 
     model:null, 
     phoneNumber: null, 
-    city: null
-}
+    city: null, 
+    defineModel: null
+} 
+export const getDefineCarModel = createAsyncThunk( 
+    'car/getDefineCarModel',
+    async ({id},{dispatch}) => { 
+        try {
+            const defineCarDoc = doc(ModelRef, id) 
+            const defineSnap = await getDoc(defineCarDoc) 
+            dispatch(setDefineModel({model: defineSnap.data()}))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+)
 export const getAllCars = createAsyncThunk( 
     'car/getAll', 
-    async(_,{dispatch}) =>{
+    async({FC = ()=>{} },{dispatch}) =>{
+       FC(true)
         try {
         const allRef = doc(CarRef, 'all') 
         const carSnap = await getDoc(allRef) 
@@ -23,13 +37,27 @@ export const getAllCars = createAsyncThunk(
         dispatch(setCar({cars: carSnap.data()?.cars}))
         } catch (error) {
             console.log(error);
+        }finally{ 
+            FC(false)
+        }
+        FC(false)
+    } 
+) 
+export const setClientData = createAsyncThunk( 
+    'car/setClientData', 
+    async () => { 
+        try {
+            
+        } catch (error) {
+            
         }
     }
 )
 export const getDefineCarImage = createAsyncThunk( 
     'car/getCarImg', 
-    async({id},{dispatch}) =>{ 
-        try {
+    async({id, FC=() =>{}},{dispatch}) =>{ 
+        FC(true)
+        try { 
             const collectionRef = ref(storage, id)
             const files = await listAll(collectionRef)
             const fileURLs = await Promise.all(
@@ -42,7 +70,10 @@ export const getDefineCarImage = createAsyncThunk(
             dispatch(setCarImgage({img: fileURLs[0]}))
         } catch (error) {
             console.log(error);
-        }
+        }finally{ 
+            FC(false)
+        } 
+        FC(false)
     }
 )
 const carSlice = createSlice({ 
@@ -60,9 +91,12 @@ const carSlice = createSlice({
             state.phoneNumber = action.payload.phoneNumber 
             state.mark = action.payload.mark
             state.model = action.payload.model
-        } 
+        }, 
+        setDefineModel(state,action){ 
+            state.defineModel = action.payload.model 
+        }
         
     }
 }) 
-export const {setCar,setCarImgage, setCarFormInfo} = carSlice.actions 
+export const {setCar,setCarImgage, setCarFormInfo, setDefineModel} = carSlice.actions 
 export default carSlice.reducer
