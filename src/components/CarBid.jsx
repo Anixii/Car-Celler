@@ -18,12 +18,13 @@ const CarBid = ({ setToggle }) => {
     const onHandleSelectChange = (e) => {
         const model = defineModel.equipment.filter(item => item.id === e.value)
         setDefinePrice(model[0].price)
-        setEquipment(e.name)
+        setEquipment(e.label)
     }
     const onHandleClickBack = () => {
         setToggle(false)
     } 
-    const onHandleClick = async() =>{ 
+    const onHandleClick = async() =>{  
+        
         const res = await dispatch(setClientData({equipment})) 
         if(res === 'error'){ 
             messageApi.open({
