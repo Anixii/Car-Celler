@@ -29,7 +29,8 @@ const items = [
 
     },
 ];
-const MainPage = () => {
+const MainPage = () => { 
+
     return (
         <>
             <div className={s.main}>
@@ -40,7 +41,7 @@ const MainPage = () => {
                         <div className={s.main__subtitle}>Закажите по цене завода, без наценок и переплат. Попробуйте быстрый расчёт цены под ключ</div>
                     </section> 
 
-                    <CarSelect/>
+                    <CarSelect />
 
                     <section className={s.questions}> 
                     <div className={s.questions__title}>Вопросы и ответы</div> 

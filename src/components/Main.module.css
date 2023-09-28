@@ -1,13 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
 .main{ 
     height: 100%;
-} 
-
+}  
+.error__message{ 
+    color: #ff0002; 
+    font-size: 14px ; 
+    font-family: 'Nunito', sans-serif;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
 .main__container{ 
     padding: 0 18%; 
 } 
 .main__text{  
-    padding: 5% 0; 
+    padding: 8vh 0; 
     display: flex; 
     justify-content: center; 
     align-items:center; 
@@ -63,4 +73,356 @@
     font-size: 16px; 
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
+} 
+
+.choose{ 
+    margin-bottom: 11vh;
+    display: flex; 
+    justify-content: space-between;
+    height: 100%;
+}
+.img{
+    width: 70%; 
+} 
+.img img{ 
+    width: 100%; 
+    border-radius: 16px; 
+    height: 100%; 
+
+    object-fit: cover;
+} 
+.car__form{  
+    width: 29.5%;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+}
+.car__container, .car__contacts, .car__button{   
+    border-radius: 16px; 
+    background-color:#efefef;
+    padding: 15px 10px;
+} 
+.car__container, .car__contacts{ 
+    margin-bottom: 0.6vh;
+}
+.car__title, .car__subtitle,.contact__title { 
+    color: rgb(29, 29, 31);
+    font-weight: 700;
+    font-family: 'Nunito',sans-serif; 
+    font-size: 15px;
+} 
+.car__subtitle{ 
+    font-weight: 400;
+} 
+.car__currency{  
+    margin: 3vh 0;
+    color: rgb(29, 29, 31);
+    font-weight: 400;
+    font-family: 'Nunito',sans-serif; 
+    font-size: 16px;
+} 
+.car__select{ 
+    display: flex;
+    justify-content: space-between;
+}   
+.car__item{ 
+    width: 48%;
+}
+.carSelect{ 
+    width: 100%;
+}
+.contact__title{ 
+    margin-bottom: 2vh;
+    font-weight: 600;
+} 
+.input__label{  
+    margin-bottom: 0.1vh;
+    color: rgb(29, 29, 31);
+    font-weight: 400;
+    font-family: 'Nunito',sans-serif; 
+    font-size: 14px;
+}   
+.contact__input{ 
+    margin-bottom: 1vh;
+}
+.contact__input input{  
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    border: none; 
+    padding: 12px 4px; 
+    border-radius: 8px;
+}  
+.button__title{  
+    margin-top: 0.6vh;
+    color: #1d1d1f;
+    font-size: 13px;
+    text-align: center;
+    font-family: 'Nunito',sans-serif;
+    font-weight: 400;
+}
+.car__btn button{   
+    outline: none; 
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Nunito', sans-serif; 
+    width: 100%; 
+    padding: 18px;
+    font-weight: 400;
+    border-radius: 8px;
+    background-color: #ff0002;
+} 
+
+@media screen and (max-width: 1540px) {
+    .main__container{ 
+        padding: 0 12%; 
+    }  
+    .main__title{   
+        width: 80%;
+        font-size: 36px; 
+    } 
+    .main__subtitle{    
+        width: 80%;
+        font-size: 22px; 
+
+    }  
+    .questions__title{  
+        font-size: 30px; 
+    }
+    .questions__collapse > div > div > span{
+        font-size: 18px; 
+    }
+    .questions__collapse > div > div > div > span{
+        font-size: 16px !important; 
+    }
+    .collapse__title{ 
+        font-size: 16px; 
+    } 
+
+
+    .car__container, .car__contacts, .car__button{   
+        padding: 15px 10px;
+    } 
+
+    .car__title, .car__subtitle,.contact__title { 
+        font-size: 15px;
+    } 
+    .car__currency{  
+        font-size: 16px;
+    }  
+    .input__label{  
+        font-size: 14px;
+    }   
+    .button__title{  
+
+        font-size: 13px;
+    }
+    .car__btn button{   
+        font-size: 14px;
+        padding: 18px;
+
+    } 
+}
+@media screen and (max-width: 1280px) {
+    .main__container{ 
+        padding: 0 9%; 
+    }  
+}
+@media screen and (max-width: 1080px) {
+    .main__container{ 
+        padding: 0 9%; 
+    }   
+    .choose{ 
+        flex-direction: column; 
+        justify-content: flex-start;
+    } 
+    .img{ 
+        width: 100%;
+    } 
+    .car__form{ 
+        width: 100%;
+    }  
+
+    .main__title{   
+        width: 80%;
+        font-size: 34px; 
+    } 
+    .main__subtitle{    
+        width: 80%;
+        font-size: 21px; 
+
+    }  
+    .questions__title{  
+        font-size: 29px; 
+    }
+    .questions__collapse > div > div > span{
+        font-size: 17px; 
+    }
+    .questions__collapse > div > div > div > span{
+        font-size: 15px !important; 
+    }
+    .collapse__title{ 
+        font-size: 15px; 
+    } 
+
+
+    .car__container, .car__contacts, .car__button{   
+        padding: 15px 10px;
+    } 
+
+    .car__title, .car__subtitle,.contact__title { 
+        font-size: 17px; 
+    } 
+    .car__currency{  
+        margin: 1.6vh 0;
+
+        font-size: 16px;
+    }  
+    .input__label{  
+        font-size: 14px;
+    }   
+    .button__title{   
+        font-size: 13px;
+    }  
+    .car__button{ 
+        width: 100%; 
+        display: flex; 
+        justify-content: center;
+    }
+    .car__button_container{  
+        width: 55%;
+    }
+    .car__btn button{   
+        font-size: 14px;
+        padding: 18px;
+
+    } 
+}
+@media screen and (max-width: 768px) {
+    .main__container{ 
+        padding: 0 7%; 
+    }    
+
+    .main__title{   
+        width: 100%;
+        font-size: 32px; 
+    } 
+    .main__subtitle{    
+        width: 100%;
+        font-size: 19px; 
+
+    }  
+    .questions__title{  
+        font-size: 27px; 
+    }
+    .questions__collapse > div > div > span{
+        font-size: 17px; 
+    }
+    .questions__collapse > div > div > div > span{
+        font-size: 15px !important; 
+    }
+    .collapse__title{ 
+        font-size: 15px; 
+    } 
+
+
+    .car__container, .car__contacts, .car__button{   
+        padding: 15px 10px;
+    } 
+
+    .car__title, .car__subtitle,.contact__title { 
+        font-size: 16px; 
+    } 
+    .car__currency{  
+        margin: 1.6vh 0;
+
+        font-size: 16px;
+    }  
+    .input__label{  
+        font-size: 14px;
+    }   
+    .button__title{   
+        font-size: 13px;
+    }  
+    .car__button{  
+        box-sizing: border-box;
+        width: 100%; 
+        display: flex; 
+        justify-content: center;
+    }
+    .car__button_container{  
+        width: 55%;
+    }
+    .car__btn button{   
+        font-size: 14px;
+        padding: 18px;
+
+    } 
+}
+@media screen and (max-width: 620px) {
+    
+    .car__button_container{  
+        width: 85%;
+    }
+}
+@media screen and (max-width: 425px) {
+    
+    .car__button_container{  
+        width: 95%;
+    } 
+    .main__container{ 
+        padding: 0 4%; 
+    }    
+
+    .main__title{   
+        width: 100%;
+        font-size: 25px; 
+    } 
+    .main__subtitle{    
+        width: 100%;
+        font-size: 16px; 
+
+    }  
+    .questions__title{  
+        font-size: 24px; 
+    }
+    .questions__collapse > div > div > span{
+        font-size: 16px; 
+    }
+    .questions__collapse > div > div > div > span{
+        font-size: 14px !important; 
+    }
+    .collapse__title{ 
+        font-size: 15px; 
+    } 
+    .questions__container{ 
+        padding: 5% 0;
+    }
+
+
+    .car__container, .car__contacts, .car__button{   
+        padding: 11px 8px;
+    } 
+
+    .car__title, .car__subtitle,.contact__title { 
+        font-size: 15px; 
+    } 
+    .car__currency{  
+        margin: 1.6vh 0;
+
+        font-size: 15px;
+    }  
+    .input__label{  
+        font-size: 12px;
+    }   
+    .button__title{   
+        font-size: 12px;
+    }  
+
+    .car__btn button{   
+        font-size: 14px;
+        padding: 14px;
+
+    } 
 }

@@ -1,68 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllCars } from '../store/Car-slice';
-import Select from 'react-select';
-import { Controller, useForm } from 'react-hook-form';
-
+import { getAllCars, getDefineCarImage } from '../store/Car-slice';
+import s from './Main.module.css'
+import CarCalculation from './CarCalculation';
 function CarSelect() {
     const dispatch = useDispatch()
-    const [isDisabled, setDisabled] = useState(true)
-    const [model, setModel] = useState([])
-    const { cars } = useSelector(state => state.car)
-    const typeSelect = cars?.map((item) => ({
-        value: item?.title,
-        label: item?.title,
-    }))
-    const { handleSubmit, formState: { errors }, reset, control } = useForm()
-    const onHandleChange = (e) => { 
-        reset({ 
-            model: 'Модель'
-        })
-        const newModel = cars.filter(item => item.title === e.value)
-        setDisabled(false)
-        
-        const typeSelect = newModel[0]?.models?.map((item) => ({
-            value: item?.id,
-            label: item?.name,
-        }))
-        setModel(typeSelect)
-    }
-    const onModelChange = (e) => {
-
-    }
+    const { cars, carImage } = useSelector(state => state.car) 
+    const [isToggled, setToggle] = useState(false)
     useEffect(() => {
         dispatch(getAllCars())
-    }, [dispatch]) 
-    const onSubmit = (e) => {  
-        console.log(e);
-    }
+    }, [dispatch])
+   
     return (
-        <> 
-        <form onSubmit={handleSubmit(onSubmit)}> 
+        <>
+            <div className={s.choose}>
+                <div className={s.img}>
+                    <img src={carImage} alt="Car" />
+                </div> 
+                {isToggled ? 
+                <div></div> 
+                :<CarCalculation cars={cars} setToggle={setToggle}/>
+                }
+            </div>
 
-            <Controller
-                name='mark' 
-                control={control} 
-                rules={{ 
-                    required: "Это поле обязательное!",
-                }}  
-                
-                render={({field}) => <Select {...field} options={typeSelect}  isSearchable={true} placeholder='Марка'  onChange={onHandleChange}   />}
-                
-                />
-            <Controller
-                name='model' 
-                control={control} 
-                rules={{ 
-                    required: "Это поле обязательное!",
-                }}   
-                onChange={onModelChange}
-                render={({field}) => <Select {...field} options={model}  placeholder={'Модель'}  isDisabled={isDisabled}   />
-            }
-            
-            /> 
-            <button>CLick</button>
-            </form>
         </>
     )
 }

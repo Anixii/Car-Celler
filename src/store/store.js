@@ -6,5 +6,6 @@ const store = configureStore( {
         car: CarSlice
     }
 }
-)
+) 
+window.store = store
 export default store
