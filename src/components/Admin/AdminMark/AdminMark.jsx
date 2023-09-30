@@ -2,22 +2,23 @@
 import s from '../Admin.module.css'
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { setNewCarMark } from '../../../store/adminSlice';
 
 function AdminPanel() {
   const { handleSubmit, control, register, reset, getValues, setValue, formState: { errors } } = useForm();
-  const [complectations, setComplectations] = useState([{ name: '', prices: [{ num: '', name: '' }] }]);
+  const [complectations, setComplectations] = useState([{ name: '', price: [{ num: '', name: '' }] }]);
 
-
-  const onSubmit = (data) => {
-    // Отправьте данные на сервер или выполните необходимые действия
-    console.log(data);
-    // Сбросьте форму после успешной отправки
-    reset();
+  const dispatch = useDispatch()
+  const onSubmit = (data) => { 
+    const {title,model,file,complectations}= data
+    dispatch(setNewCarMark({file:file[0], complectation: complectations, model,title}))
+    reset()
   };
 
   const addComplectation = () => {
     // Добавьте новую комплектацию в состояние
-    setComplectations([...complectations, { name: '', prices: [{ num: '', name: '' }] }]);
+    setComplectations([...complectations, { name: '', price: [{ num: '', name: '' }] }]);
   };
 
   const removeComplectation = (index) => {
@@ -30,14 +31,14 @@ function AdminPanel() {
   const addPrice = (complectationIndex) => {
     // Добавьте новую цену и место продажи для комплектации
     const updatedComplectations = [...complectations];
-    updatedComplectations[complectationIndex].prices.push({ num: '', name: '' });
+    updatedComplectations[complectationIndex].price.push({ num: '', name: '' });
     setComplectations(updatedComplectations);
   };
 
   const removePrice = (complectationIndex, priceIndex) => {
     // Удалите цену и место продажи для комплектации
     const updatedComplectations = [...complectations];
-    updatedComplectations[complectationIndex].prices.splice(priceIndex, 1);
+    updatedComplectations[complectationIndex].price.splice(priceIndex, 1);
     setComplectations(updatedComplectations);
   };
 
@@ -81,18 +82,18 @@ function AdminPanel() {
                 <div>
 
 
-                  {complectation.prices.map((price, priceIndex) => (
+                  {complectation.price.map((price, priceIndex) => (
                     <div key={priceIndex}>
                       <div className={s.equipment__item__title}>Цена №{priceIndex + 1}</div>
                       <div className={s.mark__item}>
                         <div className={s.mark__item__title}>Цена:</div>
-                        <input {...register(`complectations[${complectationIndex}].prices[${priceIndex}].num`, { required: true })} />
-                        {errors.complectations?.[complectationIndex]?.prices?.[priceIndex]?.num && <span className={s.error__message}>Это поле обязательное!</span>}
+                        <input {...register(`complectations[${complectationIndex}].price[${priceIndex}].num`, { required: true })} />
+                        {errors.complectations?.[complectationIndex]?.price?.[priceIndex]?.num && <span className={s.error__message}>Это поле обязательное!</span>}
                       </div>
                       <div className={s.mark__item}>
                         <div className={s.mark__item__title}>Место продажи:</div>
-                        <input {...register(`complectations[${complectationIndex}].prices[${priceIndex}].name`, { required: true })} />
-                        {errors.complectations?.[complectationIndex]?.prices?.[priceIndex]?.name && <span className={s.error__message}>Это поле обязательное!</span>}
+                        <input {...register(`complectations[${complectationIndex}].price[${priceIndex}].name`, { required: true })} />
+                        {errors.complectations?.[complectationIndex]?.price?.[priceIndex]?.name && <span className={s.error__message}>Это поле обязательное!</span>}
                       </div>
                       {priceIndex !== 0  &&<button className={s.price__btn_delete} type="button" onClick={() => removePrice(complectationIndex, priceIndex)}>
                         Удалить цену и место продажи №{priceIndex+1}

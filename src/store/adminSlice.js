@@ -12,19 +12,30 @@ const initialState = {
 } 
 export const setNewCarMark = createAsyncThunk( 
     'admin/setNewCarMark', 
-    async({file, name}) =>{ 
+    async({file, title, model,complectation}) =>{ 
         try { 
             const carSnap = doc(CarRef,'all')
             const id = generateRandomString()
             const photomouseRef = ref(storage, id)
             const fileRef = ref(photomouseRef, file.name)
-            await uploadBytes(fileRef, file.originFileObj)
+            await uploadBytes(fileRef, file)
             await updateDoc(carSnap, {
-                cars: arrayUnion({  })
-              }) 
-
+                cars: arrayUnion({ 
+                    title, 
+                    models:[
+                        {id:id,name: model}
+                    ]
+                })
+              })
+            const modelDoc = doc(ModelRef, id) 
+            await setDoc(modelDoc,{ 
+                model, 
+                name: title, 
+                equipment:complectation, 
+                id
+            })
         } catch (error) {
-            
+            console.log(error);
         }
     }
 )
