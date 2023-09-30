@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+.error__message{ 
+    color: red; 
+    font-size: 14px;
+}
+.mark{  
+    box-sizing: border-box;
+    height: 100%; 
+    width: 100%; 
+} 
+.mark__container{ 
+    margin: 3vh 6%; 
+    display: flex; 
+    flex-direction: column;
+} 
+.mark__title{  
+    font-size: 36px; 
+    font-weight: 900; 
+    text-align: center;
+    font-family: 'Nunito',sans-serif;
+}  
+.mark__item{ 
+    margin: 0.8% 0;
+}  
+.mark__item input {   
+    border-radius: 8px;
+    border: 1px solid rgb(203, 203, 203);
+    outline:  none; 
+    padding: 8px; 
+    width: 100%;
+}
+.mark__item__title{ 
+    font-size: 17px; 
+    font-family: 'Nunito',sans-serif;
+    margin-bottom: 0.2%; 
+    font-weight: 400;
+} 
+.mark__equipment{  
+    margin-top: 3vh;
+    border-top: 1px solid rgb(155, 155, 155) ;
+}  
+.equipment__item{  
+    padding: 1% 0;
+    border-bottom: 1px solid rgb(155, 155, 155);
+}
+.mark__equipment_title, .mark__equipment_subtitle{  
+    margin: 1% 0;
+    font-weight: 900; 
+    text-align: center;
+    font-family: 'Nunito',sans-serif; 
+    font-size: 26px;
+}
+.mark__equipment_subtitle{ 
+    font-size: 23px;
+}
+.equipment__item__title{ 
+    font-weight: 600; 
+    text-align: center;
+    font-family: 'Nunito',sans-serif; 
+    font-size: 20px;
+} 
+.buttons{ 
+    margin-top: 5%;
+    display: flex;  
+    justify-content: space-between;
+}
+.price__btn_delete, .equipment__btn_delete{ 
+    background-color: rgb(227, 32, 32); 
+    padding: 10px; 
+    width: 40%;  
+    border: none; 
+    outline: none; 
+    cursor: pointer;  
+    color: white;
+    font-family: 'Nunito',sans-serif;  
+    font-size: 14px;  
+    border-radius:14px;
+    margin-bottom: 1%;
+} 
+.price__btn,.equipment__btn{ 
+    background-color: rgb(50, 171, 44); 
+    padding: 10px; 
+    width: 40%;  
+    border: none; 
+    outline: none; 
+    cursor: pointer;  
+    color: white;
+    font-family: 'Nunito',sans-serif;  
+    font-size: 14px;  
+    border-radius:14px;
+    margin-bottom: 1%;
+} 
+.equipment__btn{ 
+    margin-top: 2%; 
+    width: 100%;
+}
+.submit_btn{  
+    margin-top: 14px;
+    padding: 14px; 
+    border-radius: 18px; 
+    border: none; 
+    outline: none; 
+    cursor: pointer;  
+    color: white;
+    font-family: 'Nunito',sans-serif;  
+    font-size: 17px; 
+    background-color: rgb(49, 49, 226);
+}

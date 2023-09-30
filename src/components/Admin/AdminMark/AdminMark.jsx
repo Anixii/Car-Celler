@@ -1,73 +1,128 @@
-import React from 'react'
-import s from '../Admin.module.css'
-import { Controller, useFieldArray, useForm } from 'react-hook-form'
-import { Button } from 'antd'
-import { DeleteOutlined } from '@ant-design/icons'
-const AdminMark = () => {
-  const onSubmit = (data) => {
-    console.log(data);
-  }
-  const { handleSubmit, formState: { errors }, control, register, reset } = useForm({
-  })
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'model',
-  });
-  return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)} className={s.mark}>
-        <div className={s.mark__container}>
-          <div className={s.mark__item}>
-            <div className={s.mark__item__title}>Название:</div>
-            <input type="text"  {...register('title', { required: 'Это поле обязательное!' })} />
-            {errors.title && <span className={s.error__message}>{errors.title.message}</span>}
-          </div>
-          <div className={s.mark__item}>
-            <div className={s.mark__item__title}>Фото</div>
-            <input type="file"  {...register('file', { required: 'Это поле обязательное!' })} />
-            {errors.file && <span className={s.error__message}>{errors.file.message}</span>}
-          </div>
-          <div className={s.mark__item}>
-            <div className={s.mark__item__title}>Добавить модель авто</div>
-            <input type="model"  {...register('model', { required: 'Это поле обязательное!' })} />
-            {errors.model && <span className={s.error__message}>{errors.model.message}</span>}
-          </div>
-          <div className={s.mark__item}>
 
-            {fields?.map((field, index) => (
-              <div
-                key={field.id}
-                className={s.field}>
-                <div
-                  className={s.admin__form_item}
-                >
-                  <Controller
-                    name={`model[${index}]`}
-                    control={control}
-                    defaultValue={field.ads}
-                    rules={{
-                      required: 'Это поле обязательное!'
-                    }}
-                    render={({ field }) => <input className={s.field__input} {...field} />}
-                  />
-                  <Button icon={<DeleteOutlined />} className={s.form__delete} onClick={() => remove(index)}></Button>
+import s from '../Admin.module.css'
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+
+function AdminPanel() {
+  const { handleSubmit, control, register, reset, getValues, setValue, formState: { errors } } = useForm();
+  const [complectations, setComplectations] = useState([{ name: '', prices: [{ num: '', name: '' }] }]);
+
+
+  const onSubmit = (data) => {
+    // Отправьте данные на сервер или выполните необходимые действия
+    console.log(data);
+    // Сбросьте форму после успешной отправки
+    reset();
+  };
+
+  const addComplectation = () => {
+    // Добавьте новую комплектацию в состояние
+    setComplectations([...complectations, { name: '', prices: [{ num: '', name: '' }] }]);
+  };
+
+  const removeComplectation = (index) => {
+    // Удалите комплектацию из состояния
+    const updatedComplectations = [...complectations];
+    updatedComplectations.splice(index, 1);
+    setComplectations(updatedComplectations);
+  };
+
+  const addPrice = (complectationIndex) => {
+    // Добавьте новую цену и место продажи для комплектации
+    const updatedComplectations = [...complectations];
+    updatedComplectations[complectationIndex].prices.push({ num: '', name: '' });
+    setComplectations(updatedComplectations);
+  };
+
+  const removePrice = (complectationIndex, priceIndex) => {
+    // Удалите цену и место продажи для комплектации
+    const updatedComplectations = [...complectations];
+    updatedComplectations[complectationIndex].prices.splice(priceIndex, 1);
+    setComplectations(updatedComplectations);
+  };
+
+  return (
+    <div className={s.mark}>
+      <form className={s.mark__container} onSubmit={handleSubmit(onSubmit)}>
+        <div className={s.mark__title}>Добавление новоый марки машины</div>
+        <div className={s.mark__item}>
+          <div className={s.mark__item__title}>Название марки</div>
+          <input {...register('title', { required: 'Это поле обязательное!' })} />
+          {errors.title && <span className={s.error__message}>{errors.title.message}</span>}
+
+        </div>
+        <div className={s.mark__item}>
+          <div className={s.mark__item__title}>Название модели </div>
+          <input {...register('model', { required: 'Это поле обязательное!' })} />
+          {errors.model && <span className={s.error__message}>{errors.model.message}</span>}
+        </div>
+        <div className={s.mark__item}>
+          <div className={s.mark__item__title}>Фото</div>
+          <input type="file"  {...register('file', { required: 'Это поле обязательное!' })} />
+          {errors.file && <span className={s.error__message}>{errors.file.message}</span>}
+        </div>
+
+
+        <div className={s.mark__equipment}>
+          <div className={s.mark__equipment_title}>Комплектации:</div>
+
+          <div>
+            {complectations.map((complectation, complectationIndex) => (
+              <div className={s.equipment__item} key={complectationIndex}>
+                <div className={s.equipment__item__title}>Комплектация №{complectationIndex + 1}</div>
+                <div className={s.mark__item}>
+                  <div className={s.mark__item__title}>Название комплектации:</div>
+                  <input {...register(`complectations[${complectationIndex}].name`, { required: true })} />
+                  {errors.complectations?.[complectationIndex]?.name && <span className={s.error__message}>Это поле обязательное!</span>}
                 </div>
-                {errors?.model?.[index] && <span className={s.error__message}>{errors?.model?.[index]?.message}</span>}
+
+                <div className={s.mark__equipment_subtitle}>Цены и места продажи:</div>
+
+                <div>
+
+
+                  {complectation.prices.map((price, priceIndex) => (
+                    <div key={priceIndex}>
+                      <div className={s.equipment__item__title}>Цена №{priceIndex + 1}</div>
+                      <div className={s.mark__item}>
+                        <div className={s.mark__item__title}>Цена:</div>
+                        <input {...register(`complectations[${complectationIndex}].prices[${priceIndex}].num`, { required: true })} />
+                        {errors.complectations?.[complectationIndex]?.prices?.[priceIndex]?.num && <span className={s.error__message}>Это поле обязательное!</span>}
+                      </div>
+                      <div className={s.mark__item}>
+                        <div className={s.mark__item__title}>Место продажи:</div>
+                        <input {...register(`complectations[${complectationIndex}].prices[${priceIndex}].name`, { required: true })} />
+                        {errors.complectations?.[complectationIndex]?.prices?.[priceIndex]?.name && <span className={s.error__message}>Это поле обязательное!</span>}
+                      </div>
+                      {priceIndex !== 0  &&<button className={s.price__btn_delete} type="button" onClick={() => removePrice(complectationIndex, priceIndex)}>
+                        Удалить цену и место продажи №{priceIndex+1}
+                      </button>}
+                    </div>
+                  ))}
+
+
+                </div> 
+                <div className={s.buttons}> 
+                <button type="button" className={s.price__btn} onClick={() => addPrice(complectationIndex)}>
+                  Добавить цену и место продажи
+                </button>
+                {complectationIndex !== 0 && <button className={s.equipment__btn_delete} type="button" onClick={() => removeComplectation(complectationIndex)}>
+                  Удалить комплектацию № {complectationIndex+1}
+                </button>}
+                </div>
               </div>
             ))}
-            <button className={s.admin__add_field} onClick={() => append('')}>
-              Добавить поле
-            </button>
+
 
           </div>
-          <div className={s.mark__submit}>
-            <button>Добавить</button>
-          </div>
-        </div>
+        </div> 
+        <button className={s.equipment__btn} type="button" onClick={addComplectation}>
+                  Добавить новую комплектацию
+                </button>
+        <button className={s.submit_btn} type="submit">Сохранить</button>
       </form>
-    </>
-  )
+    </div>
+  );
 }
 
-
-export default AdminMark
+export default AdminPanel;
