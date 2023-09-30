@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllCars} from '../store/Car-slice';
 import s from './Main.module.css'
 import CarCalculation from './CarCalculation';
-import CarBid from './CarBid';
+import CarBid from './CarBid'; 
+import { motion } from 'framer-motion';
 import { Skeleton, Spin } from 'antd';
 function CarSelect() {
     const dispatch = useDispatch()
@@ -17,15 +18,17 @@ function CarSelect() {
    
     return (
         <>
-            <div className={s.choose}> 
+            <motion.div whileInView={{y:0, opacity: 1, transitionDelay: 0.5}} initial={{y:0, opacity:0}} viewport={{once:true,amount:0.2}} className={s.choose}>  
                 <div className={s.img}>   
-                <img src={carImage} alt="Car" /> 
-                </div>  
+                {/* <Spin>  */}
+                <img className={s.car__image} src={carImage} alt="Car" />  
+                {/* </Spin> */}
+                </div>
                 {isToggled ? 
                 <CarBid setToggle={setToggle}/>
                 :<CarCalculation cars={cars} isSelectFetching={isSelectFetching} setImgFetching={setImgFetching} setToggle={setToggle}/>
-                }
-            </div>
+            }
+            </motion.div>
 
         </>
     )

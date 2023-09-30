@@ -2,6 +2,7 @@ import React from 'react'
 import s from './Main.module.css'
 import { Collapse } from 'antd'
 import CarSelect from './CarSelect';
+import { motion } from 'framer-motion';
 const items = [
     {
         key: '1',
@@ -29,6 +30,16 @@ const items = [
 
     },
 ];
+const variants = {
+    visible: i => ({
+      opacity: 1, 
+      x:0,
+      transition: {
+        delay: i * 0.2,
+      },
+    }),
+    hidden: { opacity: 0,x:-100, },
+  }
 const MainPage = () => { 
 
     return (
@@ -36,17 +47,17 @@ const MainPage = () => {
             <div className={s.main}>
                 <div className={s.main__container}>
 
-                    <section className={s.main__text}>
-                        <div className={s.main__title}>Новые автомобили из Китая в Алматы или Бишкек за 2 недели</div>
-                        <div className={s.main__subtitle}>Закажите по цене завода, без наценок и переплат. Попробуйте быстрый расчёт цены под ключ</div>
-                    </section> 
+                    <motion.section className={s.main__text}>
+                        <motion.div variants={variants} initial={'hidden'} animate={'visible'} custom={0} className={s.main__title}>Новые автомобили из Китая в Алматы или Бишкек за 2 недели</motion.div>
+                        <motion.div variants={variants} initial={'hidden'} animate={'visible'} custom={1} className={s.main__subtitle}>Закажите по цене завода, без наценок и переплат. Попробуйте быстрый расчёт цены под ключ</motion.div>
+                    </motion.section> 
 
                     <CarSelect />
 
                     <section className={s.questions}> 
-                    <div className={s.questions__title}>Вопросы и ответы</div> 
+                    <motion.div variants={variants} initial={'hidden'} whileInView={'visible'} viewport={{once:true,amount:0.2}} custom={0} className={s.questions__title}>Вопросы и ответы</motion.div> 
                     <div className={s.questions__container}> 
-                    <Collapse 
+                    <Collapse  
                         className={s.questions__collapse}
                         bordered={false} 
                         accordion

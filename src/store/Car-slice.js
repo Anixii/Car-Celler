@@ -50,7 +50,6 @@ export const setClientData = createAsyncThunk(
     'car/setClientData', 
     async ({equipment}, {getState}) => { 
         try {   
-            console.log(equipment);
             const {model,mark,phoneNumber,city} = getState().car
             const ran = generateRandomString()
             const userDoc = doc(UserRef, ran)  
@@ -62,7 +61,8 @@ export const setClientData = createAsyncThunk(
                 mark, 
                 phoneNumber, 
                 city
-            }) 
+            })  
+            return true
          }else{ 
             return 'error'
          }

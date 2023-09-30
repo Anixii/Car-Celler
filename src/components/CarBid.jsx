@@ -2,7 +2,7 @@ import React, { useState, } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import s from './Main.module.css'
 import Select from 'react-select';
-import { Button, message } from 'antd';
+import { Button, Spin, message } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { setClientData } from '../store/Car-slice';
 const CarBid = ({ setToggle }) => {
@@ -10,7 +10,8 @@ const CarBid = ({ setToggle }) => {
     const [messageApi, contextHolder] = message.useMessage(); 
     const { defineModel } = useSelector(state => state.car)
     const [definePrice, setDefinePrice] = useState(defineModel?.equipment[0].price)
-    const [equipment, setEquipment] = useState()
+    const [equipment, setEquipment] = useState() 
+    const [isFetching, setFetch] = useState(false)
     const typeSelect = defineModel?.equipment?.map((item) => ({
         value: item?.id,
         label: item?.name,
@@ -24,7 +25,7 @@ const CarBid = ({ setToggle }) => {
         setToggle(false)
     } 
     const onHandleClick = async() =>{  
-        
+        setFetch(true)
         const res = await dispatch(setClientData({equipment})) 
         if(res === 'error'){ 
             messageApi.open({
@@ -32,7 +33,14 @@ const CarBid = ({ setToggle }) => {
                 content: 'Произошла ошибка, попробуйте в другой раз!', 
                 duration: 6
             });
-        }
+        } else { 
+            messageApi.open({
+                type: 'success',
+                content: 'Вы успешно оставили заявку!', 
+                duration: 6
+            });
+        } 
+        setFetch(false)
     }
     return (
         <> 
@@ -63,10 +71,10 @@ const CarBid = ({ setToggle }) => {
 
                 <div className={s.bid__button}>
                     <div className={s.bid__button_container}>
-                        <div className={s.bid__btn}>
+                        <Spin spinning={isFetching}><div className={s.bid__btn}>
                             <Button className={s.btn__back} onClick={onHandleClickBack} icon={<ArrowLeftOutlined />} />
                             <button onClick={onHandleClick} className={s.btn__key}>Оставить заявку</button>
-                        </div>
+                        </div></Spin>
                         <div className={s.button__title}>
                             Сможете сравнить цены по комплектациям автомобиля и разным условиям поставки
                         </div>
