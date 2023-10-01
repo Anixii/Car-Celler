@@ -6,7 +6,7 @@ const AdminPage = () => {
     <> 
         <div className={s.admin}>
                 <Link to={'/admin/mark'}>Добавить новую Марку машины</Link>
-                {/* <Link to={'/admin/model'}>Добавить новую Модель машины</Link> */}
+                <Link to={'/admin/model'}>Добавить новую Модель машины</Link>
         </div>
     </>
   )

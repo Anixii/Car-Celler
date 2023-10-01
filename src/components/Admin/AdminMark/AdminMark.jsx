@@ -1,4 +1,3 @@
-
 import s from '../Admin.module.css'
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
@@ -87,7 +86,7 @@ function AdminPanel() {
                       <div className={s.equipment__item__title}>Цена №{priceIndex + 1}</div>
                       <div className={s.mark__item}>
                         <div className={s.mark__item__title}>Цена:</div>
-                        <input {...register(`complectations[${complectationIndex}].price[${priceIndex}].num`, { required: true })} />
+                        <input type='number' {...register(`complectations[${complectationIndex}].price[${priceIndex}].num`, { required: true })} />
                         {errors.complectations?.[complectationIndex]?.price?.[priceIndex]?.num && <span className={s.error__message}>Это поле обязательное!</span>}
                       </div>
                       <div className={s.mark__item}>
