@@ -12,7 +12,8 @@ const initialState = {
 } 
 export const setNewCarMark = createAsyncThunk( 
     'admin/setNewCarMark', 
-    async({file, title, model,complectation}) =>{ 
+    async({file, title, model,complectation,FC = () =>{}}) =>{  
+        FC(true)
         try { 
             const carSnap = doc(CarRef,'all')
             const id = generateRandomString()
@@ -33,15 +34,21 @@ export const setNewCarMark = createAsyncThunk(
                 name: title, 
                 equipment:complectation, 
                 id
-            })
+            }) 
+            FC(false) 
+            return 'Вы успешно загрузили новую марку авто'
         } catch (error) {
             console.log(error);
+            return 'error'
+        }finally{ 
+            FC(false)
         }
     }
 )
 export const setNewCarModel = createAsyncThunk( 
     'admin/setNewCarMark', 
-    async({title, model,complectations,file}) =>{ 
+    async({title, model,complectations,file,FC= () =>{}}) =>{  
+        FC(true)
         try { 
             const carSnap = doc(CarRef,'all')
             const id = generateRandomString()
@@ -63,9 +70,14 @@ export const setNewCarModel = createAsyncThunk(
                 name: title, 
                 equipment:complectations, 
                 id
-            })
+            }) 
+            FC(false) 
+            return 'Вы успешно загрузили новую марку авто'
         } catch (error) {
-            console.log(error);
+            console.log(error); 
+            return 'error'
+        }finally{ 
+            FC(false)
         }
     }
 )

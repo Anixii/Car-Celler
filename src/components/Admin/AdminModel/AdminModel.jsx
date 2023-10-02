@@ -5,16 +5,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setNewCarModel } from '../../../store/adminSlice';
 import Select from 'react-select'
 import { getAllCars } from '../../../store/Car-slice';
-import { Spin } from 'antd';
+import { Spin, message } from 'antd';
 function AdminPanel() {
   const { handleSubmit, control, register, reset, formState: { errors } } = useForm();
   const [complectations, setComplectations] = useState([{ name: '', price: [{ num: '', name: '' }] }]);
   const { cars} = useSelector( state => state.car) 
   const [isFetch, setFetching] = useState(false)
-  const dispatch = useDispatch()
-  const onSubmit = (data) => { 
-    dispatch(setNewCarModel({title: data.mark.label, model: data.model, complectations: data.complectations,file:data.file[0]}))
+  const dispatch = useDispatch() 
+  const [messageApi, contextHolder] = message.useMessage(); 
+  const [isButtonFetch, setButtonFetch] = useState(false)
+  const onSubmit =async (data) => { 
     reset()
+    const res = await dispatch(setNewCarModel({FC: setButtonFetch,title: data.mark.label, model: data.model, complectations: data.complectations,file:data.file[0]}))
+    if(res === 'error'){ 
+      messageApi.open({
+          type: 'error',
+          content: 'Произошла ошибка, попробуйте в другой раз!', 
+          duration: 6
+      });
+  } else { 
+      messageApi.open({
+          type: 'success',
+          content: 'Вы успешно загрузили данные!', 
+          duration: 6
+      });
+  } 
   }; 
   useEffect(() =>{ 
     dispatch(getAllCars({FC:setFetching}))
@@ -49,8 +64,9 @@ function AdminPanel() {
     label: item?.title,
 })) 
 
-  return ( 
+  return (  
     <div className={s.mark}>
+      {contextHolder}
       <form className={s.mark__container} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.mark__title}>Добавление новоый модели машины</div>
         <div className={s.mark__item}>
@@ -133,8 +149,10 @@ function AdminPanel() {
         </div>
         <button className={s.equipment__btn} type="button" onClick={addComplectation}>
           Добавить новую комплектацию
-        </button>
+        </button> 
+        <Spin spinning={isButtonFetch}> 
         <button className={s.submit_btn} type="submit">Сохранить</button>
+        </Spin>
       </form>
     </div>
   );
