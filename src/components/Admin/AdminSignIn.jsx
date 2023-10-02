@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useForm } from 'react-hook-form'
-import s from './AdminForm.module.css'
+import s from './Admin.module.css'
 import { useDispatch } from 'react-redux'
 import { Spin } from 'antd'
 import { useNavigate } from 'react-router-dom'
