@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { arrayUnion, collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { db, storage } from "../firebaseConfig"; 
-import carImg from '../assets/img/main.jpg'
+import { auth, db, storage } from "../firebaseConfig"; 
+import carImg from '../assets/img/main.jpg' 
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { generateRandomString } from "../helpers/random";
 const CarRef = collection(db, 'Cars')
@@ -10,6 +11,19 @@ const UserRef = collection(db, 'Users')
 const initialState = { 
     email: null
 } 
+export const signUserInAccount = createAsyncThunk( 
+    'user/sign', 
+    async ({email,password},{dispatch}) =>{ 
+        try{ 
+            const {user} = await signInWithEmailAndPassword(auth, email,password)  
+            dispatch(setUser({email:user.email})) 
+            return true
+        }catch(error){  
+            console.log(error);
+            return 'error'
+        }
+    }
+) 
 export const setNewCarMark = createAsyncThunk( 
     'admin/setNewCarMark', 
     async({file, title, model,complectation,FC = () =>{}}) =>{  
@@ -85,8 +99,10 @@ const adminSlice = createSlice({
     name: 'admin',
     initialState, 
     reducers:{ 
-        
+        setUser(state,action){ 
+            state.email = action.payload.email
+        }
     }
 }) 
-export const {} = adminSlice.actions 
+export const {setUser} = adminSlice.actions 
 export default adminSlice.reducer
